@@ -1,6 +1,7 @@
 package com.alrex.parcool.mixin.client;
 
 
+import com.alrex.parcool.client.input.KeyRecorder;
 import com.alrex.parcool.common.attachment.common.Parkourability;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -20,6 +21,12 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
 
     public LocalPlayerMixin(ClientLevel p_250460_, GameProfile p_249912_) {
         super(p_250460_, p_249912_);
+    }
+
+    // Замена MovementInputUpdateEvent: NeoForge шлёт его ровно после этого вызова.
+    @Inject(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/Input;tick(ZF)V", shift = At.Shift.AFTER))
+    public void onMovementInputUpdated(CallbackInfo ci) {
+        KeyRecorder.onClientTick();
     }
 
     @Inject(method = "isShiftKeyDown", at = @At("HEAD"), cancellable = true)

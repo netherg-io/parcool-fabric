@@ -3,9 +3,9 @@ package com.alrex.parcool.common.action;
 import com.alrex.parcool.common.attachment.common.Parkourability;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.event.RenderFrameEvent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import com.alrex.parcool.fabric.RenderFrameEvent;
 
 import java.nio.ByteBuffer;
 
@@ -79,10 +79,10 @@ public abstract class Action {
 		onStop(player);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public abstract boolean canStart(Player player, Parkourability parkourability, ByteBuffer startInfo);
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public abstract boolean canContinue(Player player, Parkourability parkourability);
 
 	public void onStart(Player player, Parkourability parkourability, ByteBuffer startInfo) {
@@ -91,11 +91,11 @@ public abstract class Action {
 	public void onStartInServer(Player player, Parkourability parkourability, ByteBuffer startInfo) {
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public void onStartInOtherClient(Player player, Parkourability parkourability, ByteBuffer startInfo) {
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public void onStartInLocalClient(Player player, Parkourability parkourability, ByteBuffer startInfo) {
 	}
 
@@ -117,15 +117,15 @@ public abstract class Action {
 	public void onWorkingTickInServer(Player player, Parkourability parkourability) {
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public void onWorkingTickInClient(Player player, Parkourability parkourability) {
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public void onWorkingTickInOtherClient(Player player, Parkourability parkourability) {
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public void onWorkingTickInLocalClient(Player player, Parkourability parkourability) {
 	}
 
@@ -135,11 +135,11 @@ public abstract class Action {
 	public void onServerTick(Player player, Parkourability parkourability) {
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public void onClientTick(Player player, Parkourability parkourability) {
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public void onRenderTick(RenderFrameEvent event, Player player, Parkourability parkourability) {
 	}
 
@@ -149,12 +149,12 @@ public abstract class Action {
 	public void saveSynchronizedState(ByteBuffer buffer) {
 	}
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public boolean wantsToShowStatusBar(LocalPlayer player, Parkourability parkourability) {
         return false;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public float getStatusValue(LocalPlayer player, Parkourability parkourability) {
         return 0;
     }

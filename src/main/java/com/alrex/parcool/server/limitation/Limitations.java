@@ -1,5 +1,7 @@
 package com.alrex.parcool.server.limitation;
 
+import net.minecraft.server.MinecraftServer;
+
 import com.alrex.parcool.ParCool;
 import com.alrex.parcool.common.attachment.common.Parkourability;
 import com.alrex.parcool.common.info.ServerLimitation;
@@ -9,9 +11,7 @@ import com.google.gson.stream.JsonWriter;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.LevelResource;
-import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
-import net.neoforged.neoforge.event.server.ServerStoppingEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.alrex.parcool.fabric.PacketDistributor;
 import org.apache.commons.io.FileUtils;
 
 import javax.annotation.Nullable;
@@ -193,9 +193,9 @@ public class Limitations {
         ParCool.LOGGER.info("Limitation of " + playerID + " was unloaded");
     }
 
-    public static void init(ServerAboutToStartEvent event) {
+    public static void init(MinecraftServer server) {
         GlobalLimitation.readFromServerConfig();
-        Path configPath = getServerConfigPath(event.getServer());
+        Path configPath = getServerConfigPath(server);
         LimitationFolderRootPath = configPath.resolve("parcool").resolve("limitations");
         File limitationFolder = LimitationFolderRootPath.toFile();
         if (!limitationFolder.exists()) {
@@ -203,8 +203,8 @@ public class Limitations {
         }
     }
 
-    public static void save(ServerStoppingEvent event) {
-        Path configPath = getServerConfigPath(event.getServer());
+    public static void save(MinecraftServer server) {
+        Path configPath = getServerConfigPath(server);
         Path limitationRootPath = configPath.resolve("parcool").resolve("limitations");
         for (Map.Entry<UUID, SortedMap<Limitation.ID, Limitation>> limitationEntry : Loaded.entrySet()) {
             UUID playerID = limitationEntry.getKey();

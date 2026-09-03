@@ -86,7 +86,7 @@ public class RideZipline extends Action {
         return KeyBindings.getKeyRideZipline().isDown()
                 && !KeyRecorder.keyJumpState.isPressed()
                 && !player.isInWall()
-                && !player.getData(Attachments.STAMINA).isExhausted()
+                && !player.getAttachedOrCreate(Attachments.STAMINA).isExhausted()
                 && ridingZipline != null
                 && ridingZipline.isAlive()
                 && 0 <= currentT && currentT <= 1;

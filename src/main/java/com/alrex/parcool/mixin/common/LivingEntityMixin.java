@@ -5,6 +5,8 @@ import com.alrex.parcool.common.action.impl.ChargeJump;
 import com.alrex.parcool.common.action.impl.ClimbPoles;
 import com.alrex.parcool.common.action.impl.ClimbUp;
 import com.alrex.parcool.common.attachment.common.Parkourability;
+import com.alrex.parcool.common.handlers.PlayerJumpHandler;
+import com.alrex.parcool.common.handlers.PlayerVisibilityHandler;
 import com.alrex.parcool.common.tags.BlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,8 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.NeoForgeConfig;
+import com.alrex.parcool.fabric.ParCoolEvents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -49,8 +50,8 @@ public abstract class LivingEntityMixin extends Entity {
 				return;
 			}
 			if (!parkourability.getActionInfo().can(ClimbPoles.class)
-					|| NeoForge.EVENT_BUS.post(new ParCoolActionEvent.TryToStartEvent(player, parkourability.get(ClimbPoles.class))).isCanceled()
-					|| NeoForge.EVENT_BUS.post(new ParCoolActionEvent.TryToStart(player, parkourability.get(ClimbPoles.class))).isCanceled()
+					|| ParCoolEvents.post(new ParCoolActionEvent.TryToStartEvent(player, parkourability.get(ClimbPoles.class))).isCanceled()
+					|| ParCoolEvents.post(new ParCoolActionEvent.TryToStart(player, parkourability.get(ClimbPoles.class))).isCanceled()
 			) {
 				return;
 			}
@@ -74,7 +75,10 @@ public abstract class LivingEntityMixin extends Entity {
 	public boolean parCool$isLivingOnCustomLadder(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull LivingEntity entity) {
 		boolean isSpectator = (entity instanceof Player && entity.isSpectator());
 		if (isSpectator) return false;
-		if (!NeoForgeConfig.SERVER.fullBoundingBoxLadders.get()) {
+		// ponytail: NeoForgeConfig.SERVER.fullBoundingBoxLadders под Fabric нет; берём его дефолт
+		// (false) -- проверяется только блок под ногами. Вернуть, если понадобится лазанье
+		// по столбу, задетому краем хитбокса.
+		if (true) {
 			return parCool$isCustomLadder(state, world, pos, entity);
 		} else {
 			AABB bb = entity.getBoundingBox();
@@ -124,6 +128,18 @@ public abstract class LivingEntityMixin extends Entity {
 			return !state.isCollisionShapeFullBlock(world, pos) && (direction == Direction.UP || direction == Direction.DOWN);
 		}
 		return state.getTags().anyMatch(it -> it.equals(BlockTags.POLE_CLIMBABLE));
+	}
+
+	@Inject(method = "jumpFromGround", at = @At("TAIL"))
+	public void onJumpFromGround(CallbackInfo ci) {
+		if ((Object) this instanceof Player player) {
+			PlayerJumpHandler.onJump(player);
+		}
+	}
+
+	@Inject(method = "getVisibilityPercent", at = @At("RETURN"), cancellable = true)
+	public void onGetVisibilityPercent(Entity lookingEntity, CallbackInfoReturnable<Double> cir) {
+		cir.setReturnValue(PlayerVisibilityHandler.modifyVisibility((Entity) (Object) this, cir.getReturnValue()));
 	}
 
 	@Inject(method = "setSprinting", at = @At("HEAD"), cancellable = true)

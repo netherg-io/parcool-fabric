@@ -4,9 +4,9 @@ import com.alrex.parcool.ParCool;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.alrex.parcool.fabric.IEventBus;
+import com.alrex.parcool.fabric.DeferredHolder;
+import com.alrex.parcool.fabric.DeferredRegister;
 
 public class Attributes {
     private static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(Registries.ATTRIBUTE, ParCool.MOD_ID);

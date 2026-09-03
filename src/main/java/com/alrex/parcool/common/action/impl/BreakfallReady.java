@@ -12,13 +12,13 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import java.nio.ByteBuffer;
 
 public class BreakfallReady extends Action {
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public void startBreakfall(Player player, Parkourability parkourability, boolean justTimed) {
 		if (!(player instanceof LocalPlayer localPlayer)) return;
         boolean playSound = false;
@@ -67,7 +67,7 @@ public class BreakfallReady extends Action {
 	@Override
     public boolean canContinue(Player player, Parkourability parkourability) {
 		return (KeyBindings.getKeyBreakfall().isDown()
-                && !player.getData(Attachments.STAMINA).isExhausted()
+                && !player.getAttachedOrCreate(Attachments.STAMINA).isExhausted()
 				&& !parkourability.get(Crawl.class).isDoing()
 				&& !player.isInWaterOrBubble()
 				&& (!player.onGround() || parkourability.getAdditionalProperties().getLandingTick() < 3)

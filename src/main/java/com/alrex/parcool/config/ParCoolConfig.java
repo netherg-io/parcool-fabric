@@ -10,8 +10,8 @@ import com.alrex.parcool.common.action.Actions;
 import com.alrex.parcool.common.action.impl.*;
 import com.alrex.parcool.common.stamina.StaminaType;
 import io.netty.buffer.ByteBuf;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 import javax.annotation.Nullable;
@@ -505,7 +505,7 @@ public class ParCoolConfig {
 				}
 			}
 
-			@OnlyIn(Dist.CLIENT)
+			@Environment(EnvType.CLIENT)
 			@Nullable
 			public ModConfigSpec.DoubleValue getInternalInstance() {
 				return configInstance;
@@ -901,7 +901,7 @@ public class ParCoolConfig {
 				}
 			}
 
-			@OnlyIn(Dist.CLIENT)
+			@Environment(EnvType.CLIENT)
 			@Nullable
 			public ModConfigSpec.DoubleValue getInternalInstance() {
 				return configInstance;

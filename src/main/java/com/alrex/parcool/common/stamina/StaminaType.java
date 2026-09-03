@@ -3,7 +3,6 @@ package com.alrex.parcool.common.stamina;
 import com.alrex.parcool.common.stamina.handlers.HungerStaminaHandler;
 import com.alrex.parcool.common.stamina.handlers.InfiniteStaminaHandler;
 import com.alrex.parcool.common.stamina.handlers.ParCoolStaminaHandler;
-import com.alrex.parcool.extern.AdditionalMods;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -16,8 +15,10 @@ public enum StaminaType {
     NONE(InfiniteStaminaHandler::new),
     PARCOOL(ParCoolStaminaHandler::new),
     HUNGER(HungerStaminaHandler::new),
-    PARAGLIDER(AdditionalMods.paraglider()::newParagliderStaminaHandlerFor),
-    EPIC_FIGHT(AdditionalMods.epicFight()::newStaminaHandlerFor);
+    // ponytail: без модов Paraglider/Epic Fight эти два режима падают на обычную стамину ParCool.
+    // Значения оставлены, чтобы не поехали ординалы в STREAM_CODEC и в сохранённых лимитациях.
+    PARAGLIDER(ParCoolStaminaHandler::new),
+    EPIC_FIGHT(ParCoolStaminaHandler::new);
 
     private final Function<Player, IParCoolStaminaHandler> constructor;
 

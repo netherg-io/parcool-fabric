@@ -1,0 +1,13 @@
+accessWidener	v2	named
+
+accessible	field	net/minecraft/client/renderer/RenderStateShard	NO_TEXTURE	Lnet/minecraft/client/renderer/RenderStateShard$EmptyTextureStateShard;
+accessible	field	net/minecraft/client/renderer/RenderStateShard	CULL	Lnet/minecraft/client/renderer/RenderStateShard$CullStateShard;
+accessible	field	net/minecraft/client/renderer/RenderStateShard	NO_CULL	Lnet/minecraft/client/renderer/RenderStateShard$CullStateShard;
+accessible	field	net/minecraft/client/renderer/RenderStateShard	LIGHTMAP	Lnet/minecraft/client/renderer/RenderStateShard$LightmapStateShard;
+accessible	field	net/minecraft/client/renderer/RenderStateShard	RENDERTYPE_LEASH_SHADER	Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+accessible	method	net/minecraft/world/damagesource/DamageSources	source	(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/damagesource/DamageSource;
+accessible	field	net/minecraft/world/entity/Entity	onGround	Z
+accessible	field	net/minecraft/world/entity/LivingEntity	swimAmount	F
+accessible	field	net/minecraft/world/entity/LivingEntity	swimAmountO	F
+accessible	method	net/minecraft/world/entity/player/Player	canPlayerFitWithinBlocksAndEntitiesWhen	(Lnet/minecraft/world/entity/Pose;)Z
+accessible	method	net/minecraft/world/level/storage/LevelResource	<init>	(Ljava/lang/String;)V

@@ -20,8 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import javax.annotation.Nullable;
 import java.nio.ByteBuffer;
@@ -66,7 +66,7 @@ public class WallJump extends Action {
 		return StaminaConsumeTiming.OnStart;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Nullable
 	private Vec3 getJumpDirection(Player player, Vec3 wall) {
 		if (wall == null) return null;
@@ -90,7 +90,7 @@ public class WallJump extends Action {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public boolean canStart(Player player, Parkourability parkourability, ByteBuffer startInfo) {
 		if (inPossibleState && isInputDone() && startInfoTempBuffer.hasRemaining()) {
 			startInfo.put(startInfoTempBuffer);
@@ -100,13 +100,13 @@ public class WallJump extends Action {
 		return false;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public boolean isInputDone() {
 		ControlType control = ParCoolConfig.Client.getInstance().WallJumpControl.get();
 		return (control == ControlType.PressKey && KeyRecorder.keyWallJump.isPressed()) || (control == ControlType.ReleaseKey && KeyRecorder.keyWallJump.isReleased());
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public boolean checkCanStart(Player player, Parkourability parkourability, ByteBuffer startInfo) {
 		Vec3 wallDirection = WorldUtil.getWall(player, player.getBbWidth() * 0.65);
 		Vec3 jumpDirection = getJumpDirection(player, wallDirection);
@@ -192,7 +192,7 @@ public class WallJump extends Action {
 				Mth.floor(player.getZ() + wallDirection.z())
 		);
 		float slipperiness = player.getCommandSenderWorld().isLoaded(leanedBlock) ?
-				player.getCommandSenderWorld().getBlockState(leanedBlock).getFriction(player.getCommandSenderWorld(), leanedBlock, player)
+				player.getCommandSenderWorld().getBlockState(leanedBlock).getBlock().getFriction()
 				: 0.6f;
 
 		double ySpeed;
@@ -236,7 +236,7 @@ public class WallJump extends Action {
 				Mth.floor(player.getZ() + wallDirection.z())
         );
         float slipperiness = player.level().isLoaded(leanedBlock) ?
-                player.level().getBlockState(leanedBlock).getFriction(player.level(), leanedBlock, player)
+                player.level().getBlockState(leanedBlock).getBlock().getFriction()
                 : 1f;
         if (slipperiness <= 0.9) {// icy blocks
             spawnJumpParticles(player, wallDirection, jumpDirection);
@@ -263,7 +263,7 @@ public class WallJump extends Action {
         super.onWorkingTickInClient(player, parkourability);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	private void spawnJumpParticles(Player player, Vec3 wallDirection, Vec3 jumpDirection) {
 		if (!ParCoolConfig.Client.Booleans.EnableActionParticles.get()) return;
 		Level level = player.level();
@@ -305,7 +305,7 @@ public class WallJump extends Action {
                         .scale(3 + 9 * player.getRandom().nextDouble())
                         .add(0, -jumpDirection.y() * 3 * player.getRandom().nextDouble(), 0);
                 level.addParticle(
-                        new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(leanedBlock),
+                        new BlockParticleOption(ParticleTypes.BLOCK, blockstate),
                         particlePos.x(),
                         particlePos.y(),
                         particlePos.z(),

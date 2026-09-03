@@ -13,11 +13,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class StaminaHUD {
 	public static final ResourceLocation STAMINA = ResourceLocation.fromNamespaceAndPath(ParCool.MOD_ID, "textures/gui/stamina_bar.png");
 
@@ -32,7 +31,7 @@ public class StaminaHUD {
     private float oldStatusValue = 0f;
     private boolean showStatus = false;
 
-	public void onTick(ClientTickEvent.Post event, LocalPlayer player) {
+	public void onTick(LocalPlayer player) {
         Parkourability parkourability = Parkourability.get(player);
         if (parkourability == null) return;
 		if (++renderGageTick >= 5) {

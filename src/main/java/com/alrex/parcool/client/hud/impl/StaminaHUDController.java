@@ -12,14 +12,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.common.NeoForge;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import com.alrex.parcool.fabric.ParCoolEvents;
 
 import javax.annotation.Nonnull;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class StaminaHUDController implements LayeredDraw.Layer {
 	public static ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ParCool.MOD_ID, "hud.stamina");
 	LightStaminaHUD lightStaminaHUD;
@@ -30,11 +29,11 @@ public class StaminaHUDController implements LayeredDraw.Layer {
 		staminaHUD = new StaminaHUD();
 	}
 
-	public void onTick(ClientTickEvent.Post event) {
+	public void onTick() {
 		LocalPlayer player = Minecraft.getInstance().player;
 		if (player == null || player.isCreative()) return;
-		lightStaminaHUD.onTick(event, player);
-		staminaHUD.onTick(event, player);
+		lightStaminaHUD.onTick(player);
+		staminaHUD.onTick(player);
 	}
 
 	@Override
@@ -46,7 +45,7 @@ public class StaminaHUDController implements LayeredDraw.Layer {
 		Parkourability parkourability = Parkourability.get(player);
 
 		var localStamina = LocalStamina.get(player);
-		var stamina = player.getData(Attachments.STAMINA);
+		var stamina = player.getAttachedOrCreate(Attachments.STAMINA);
 
 		if (ParCoolConfig.Client.Booleans.HideStaminaHUDWhenStaminaIsInfinite.get() &&
 				parkourability.getActionInfo().isStaminaInfinite(localStamina, player)
@@ -54,7 +53,7 @@ public class StaminaHUDController implements LayeredDraw.Layer {
 
 		if (!localStamina.shouldShowHUD(player)) return;
 
-		if (NeoForge.EVENT_BUS.post(new ParCoolHUDEvent.RenderEvent(graphics, partialTick)).isCanceled())
+		if (ParCoolEvents.post(new ParCoolHUDEvent.RenderEvent(graphics, partialTick)).isCanceled())
 			return;
 
 		switch (ParCoolConfig.Client.getInstance().StaminaHUDType.get()) {

@@ -1,5 +1,7 @@
 package com.alrex.parcool.common.action.impl;
 
+import com.alrex.parcool.fabric.ForcedPoseHolder;
+
 import com.alrex.parcool.api.SoundEvents;
 import com.alrex.parcool.client.animation.impl.CrawlAnimator;
 import com.alrex.parcool.client.animation.impl.SlidingAnimator;
@@ -20,8 +22,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import javax.annotation.Nullable;
 import java.nio.ByteBuffer;
@@ -129,7 +131,7 @@ public class Slide extends Action {
 		return StaminaConsumeTiming.None;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	private void spawnSlidingParticle(Player player) {
 		if (!ParCoolConfig.Client.Booleans.EnableActionParticles.get()) return;
 		var level = player.level();
@@ -151,13 +153,7 @@ public class Slide extends Action {
 					.add(0, 1.5, 0);
 			var blockPos = player.position().add(0, -0.5, 0);
 			level.addParticle(
-					new BlockParticleOption(ParticleTypes.BLOCK, feetBlock).setPos(
-							new BlockPos(
-									Mth.floor(blockPos.x()),
-									Mth.floor(blockPos.y()),
-									Mth.floor(blockPos.z())
-							)
-					),
+					new BlockParticleOption(ParticleTypes.BLOCK, feetBlock),
 					particlePos.x(),
 					particlePos.y(),
 					particlePos.z(),
@@ -172,13 +168,13 @@ public class Slide extends Action {
 	@Override
 	public void onWorkingTick(Player player, Parkourability parkourability) {
 		player.setSprinting(false);
-		if (player.getForcedPose() != Pose.SWIMMING) {
-			player.setForcedPose(Pose.SWIMMING);
+		if (((ForcedPoseHolder) player).parCool$getForcedPose() != Pose.SWIMMING) {
+			((ForcedPoseHolder) player).parCool$setForcedPose(Pose.SWIMMING);
 		}
 	}
 
 	@Override
 	public void onStop(Player player) {
-		player.setForcedPose(null);
+		((ForcedPoseHolder) player).parCool$setForcedPose(null);
 	}
 }

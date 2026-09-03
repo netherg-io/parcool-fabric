@@ -4,18 +4,19 @@ import com.alrex.parcool.ParCool;
 import com.alrex.parcool.common.item.zipline.ZiplineRopeItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.alrex.parcool.fabric.IEventBus;
+import com.alrex.parcool.fabric.DeferredHolder;
+import com.alrex.parcool.fabric.DeferredRegister;
 
 import java.util.Arrays;
 
 public class CreativeTabs {
     private static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ParCool.MOD_ID);
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ITEMS = TABS.register("items", () -> CreativeModeTab.builder()
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ITEMS = TABS.register("items", () -> FabricItemGroup.builder()
             .icon(() -> new ItemStack(Items.PARCOOL_GUIDE.get()))
             .title(Component.translatable("itemGroup.ParCool"))
             .hideTitle()

@@ -10,7 +10,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import com.alrex.parcool.fabric.IPayloadContext;
 
 import javax.annotation.Nonnull;
 import java.util.UUID;
@@ -35,7 +35,7 @@ public record StaminaPayload(UUID playerID, ReadonlyStamina stamina) implements 
     public void processPlayer(IPayloadContext context) {
         Player player = context.player().level().getPlayerByUUID(this.playerID);
         if (player == null || player.isLocalPlayer()) return;
-        player.setData(Attachments.STAMINA, this.stamina);
+        player.setAttached(Attachments.STAMINA, this.stamina);
     }
 
     public static void handleClient(StaminaPayload payload, IPayloadContext context) {

@@ -18,8 +18,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import java.nio.ByteBuffer;
 
@@ -52,7 +52,7 @@ public class CatLeap extends Action {
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
 	public boolean canStart(Player player, Parkourability parkourability, ByteBuffer startInfo) {
 		Vec3 movement = player.getDeltaMovement();
@@ -71,7 +71,7 @@ public class CatLeap extends Action {
 		);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
     public boolean canContinue(Player player, Parkourability parkourability) {
 		return !((getDoingTick() > 1 && player.onGround())
@@ -120,7 +120,7 @@ public class CatLeap extends Action {
 		return StaminaConsumeTiming.OnStart;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	private void spawnJumpEffect(Player player, Vec3 jumpDirection) {
 		if (!ParCoolConfig.Client.Booleans.EnableActionParticles.get()) return;
 		Level level = player.level();
@@ -143,7 +143,7 @@ public class CatLeap extends Action {
 				);
 				Vec3 particleSpeed = particlePos.subtract(pos).normalize().scale(2.5 + 8 * player.getRandom().nextDouble()).add(0, 1.5, 0);
 				level.addParticle(
-						new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(blockpos),
+						new BlockParticleOption(ParticleTypes.BLOCK, blockstate),
 						particlePos.x(),
 						particlePos.y(),
 						particlePos.z(),

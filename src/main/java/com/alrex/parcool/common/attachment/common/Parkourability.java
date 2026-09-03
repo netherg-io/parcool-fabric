@@ -12,9 +12,9 @@ import com.alrex.parcool.common.network.payload.ClientInformationPayload;
 import com.alrex.parcool.config.ParCoolConfig;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import com.alrex.parcool.fabric.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Parkourability {
 	public static Parkourability get(Player player) {
-		return player.getData(Attachments.PARKOURABILITY);
+		return player.getAttachedOrCreate(Attachments.PARKOURABILITY);
 	}
 
     private final ActionInfo info;
@@ -117,13 +117,13 @@ public class Parkourability {
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public void trySyncLimitation(LocalPlayer player, Parkourability parkourability) {
 		synchronizeTrialCount++;
 		PacketDistributor.sendToServer(new ClientInformationPayload(player.getUUID(), true, parkourability.getClientInfo()));
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public int getSynchronizeTrialCount() {
 		return synchronizeTrialCount;
 	}
@@ -132,7 +132,7 @@ public class Parkourability {
 		synchronizeTrialCount++;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public boolean limitationIsNotSynced() {
 		return !getServerLimitation().isSynced();
 	}

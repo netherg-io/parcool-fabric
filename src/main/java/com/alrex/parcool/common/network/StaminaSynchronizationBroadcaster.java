@@ -3,9 +3,7 @@ package com.alrex.parcool.common.network;
 import com.alrex.parcool.common.attachment.common.ReadonlyStamina;
 import com.alrex.parcool.common.network.payload.StaminaBroadcastPayload;
 import com.alrex.parcool.common.network.payload.StaminaPayload;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.alrex.parcool.fabric.PacketDistributor;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -28,8 +26,7 @@ public class StaminaSynchronizationBroadcaster {
 
     private static int syncCoolTime = 10;
 
-    @SubscribeEvent
-    public static void onTick(ServerTickEvent.Post event) {
+    public static void onTick() {
         if (--syncCoolTime > 0) return;
         syncCoolTime = 10;
         send();

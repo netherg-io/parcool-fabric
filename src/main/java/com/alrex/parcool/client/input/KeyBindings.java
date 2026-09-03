@@ -4,21 +4,15 @@ import com.alrex.parcool.utilities.VectorUtil;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.Options;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.settings.KeyConflictContext;
-import net.neoforged.neoforge.client.settings.KeyModifier;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import org.lwjgl.glfw.GLFW;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class KeyBindings {
-    private static final Minecraft mc = Minecraft.getInstance();
-    private static final Options settings = mc.options;
-    private static final KeyMapping keyBindEnable = new KeyMapping("key.parcool.Enable", KeyConflictContext.UNIVERSAL, KeyModifier.CONTROL, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_P, "key.categories.parcool");
+    private static final KeyMapping keyBindEnable = new KeyMapping("key.parcool.Enable", GLFW.GLFW_KEY_UNKNOWN, "key.categories.parcool");
 	private static final KeyMapping keyBindCrawl = new KeyMapping("key.parcool.Crawl", GLFW.GLFW_KEY_C, "key.categories.parcool");
 	private static final KeyMapping keyBindGrabWall = new KeyMapping("key.parcool.ClingToCliff", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_RIGHT, "key.categories.parcool");
 	private static final KeyMapping keyBindBreakfall = new KeyMapping("key.parcool.Breakfall", GLFW.GLFW_KEY_R, "key.categories.parcool");
@@ -33,21 +27,21 @@ public class KeyBindings {
     private static final KeyMapping keyBindHideInBlock = new KeyMapping("key.parcool.HideInBlock", GLFW.GLFW_KEY_C, "key.categories.parcool");
 	private static final KeyMapping keyBindHorizontalWallRun = new KeyMapping("key.parcool.HorizontalWallRun", GLFW.GLFW_KEY_R, "key.categories.parcool");
 	private static final KeyMapping keyBindQuickTurn = new KeyMapping("key.parcool.QuickTurn", GLFW.GLFW_KEY_UNKNOWN, "key.categories.parcool");
-	private static final KeyMapping keyBindOpenSettings = new KeyMapping("key.parcool.openSetting", KeyConflictContext.UNIVERSAL, KeyModifier.ALT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_P, "key.categories.parcool");
+	private static final KeyMapping keyBindOpenSettings = new KeyMapping("key.parcool.openSetting", GLFW.GLFW_KEY_P, "key.categories.parcool");
 	private static final Vec3 forwardVector = new Vec3(0, 0, 1);
 
 	public static KeyMapping getKeySprint() {
-		return settings.keySprint;
+		return Minecraft.getInstance().options.keySprint;
 	}
 
 	public static Boolean isKeyJumpDown() {
-		return mc.player != null
-				&& mc.player.input != null
-				&& mc.player.input.jumping;
+		return Minecraft.getInstance().player != null
+				&& Minecraft.getInstance().player.input != null
+				&& Minecraft.getInstance().player.input.jumping;
 	}
 
 	public static KeyMapping getKeySneak() {
-		return settings.keyShift;
+		return Minecraft.getInstance().options.keyShift;
 	}
 
 	public static Vec3 getCurrentMoveVector() {
@@ -64,32 +58,32 @@ public class KeyBindings {
 	}
 
 	public static Boolean isAnyMovingKeyDown() {
-		return mc.player != null
-				&& mc.player.input != null
-				&& (mc.player.input.left
-				|| mc.player.input.right
-				|| mc.player.input.forwardImpulse != 0
-				|| mc.player.input.leftImpulse != 0);
+		return Minecraft.getInstance().player != null
+				&& Minecraft.getInstance().player.input != null
+				&& (Minecraft.getInstance().player.input.left
+				|| Minecraft.getInstance().player.input.right
+				|| Minecraft.getInstance().player.input.forwardImpulse != 0
+				|| Minecraft.getInstance().player.input.leftImpulse != 0);
 	}
 
 	public static Boolean isLeftAndRightDown() {
-		return mc.player != null && mc.player.input != null && mc.player.input.left && mc.player.input.right;
+		return Minecraft.getInstance().player != null && Minecraft.getInstance().player.input != null && Minecraft.getInstance().player.input.left && Minecraft.getInstance().player.input.right;
 	}
 
 	public static Boolean isKeyForwardDown() {
-		return mc.player != null && mc.player.input != null && mc.player.input.forwardImpulse > 0;
+		return Minecraft.getInstance().player != null && Minecraft.getInstance().player.input != null && Minecraft.getInstance().player.input.forwardImpulse > 0;
 	}
 
 	public static Boolean isKeyLeftDown() {
-		return mc.player != null && mc.player.input != null && mc.player.input.left;
+		return Minecraft.getInstance().player != null && Minecraft.getInstance().player.input != null && Minecraft.getInstance().player.input.left;
 	}
 
 	public static Boolean isKeyRightDown() {
-		return mc.player != null && mc.player.input != null && mc.player.input.right;
+		return Minecraft.getInstance().player != null && Minecraft.getInstance().player.input != null && Minecraft.getInstance().player.input.right;
 	}
 
 	public static Boolean isKeyBackDown() {
-		return mc.player != null && mc.player.input != null && mc.player.input.forwardImpulse < 0;
+		return Minecraft.getInstance().player != null && Minecraft.getInstance().player.input != null && Minecraft.getInstance().player.input.forwardImpulse < 0;
 	}
 
     public static KeyMapping getKeyBindEnable() {
@@ -156,23 +150,22 @@ public class KeyBindings {
 		return keyBindFlipping;
 	}
 
-	@SubscribeEvent
-	public static void register(RegisterKeyMappingsEvent event) {
-        event.register(keyBindEnable);
-		event.register(keyBindCrawl);
-		event.register(keyBindGrabWall);
-		event.register(keyBindBreakfall);
-		event.register(keyBindFastRunning);
-		event.register(keyBindDodge);
-        event.register(keyBindRideZipline);
-		event.register(keyBindWallSlide);
-		event.register(keyBindWallJump);
-		event.register(keyBindVault);
-		event.register(keyBindHorizontalWallRun);
-        event.register(keyBindHideInBlock);
-		event.register(keyBindOpenSettings);
-		event.register(keyBindQuickTurn);
-		event.register(keyBindFlipping);
-		event.register(keyBindHangDown);
+	public static void register() {
+        KeyBindingHelper.registerKeyBinding(keyBindEnable);
+		KeyBindingHelper.registerKeyBinding(keyBindCrawl);
+		KeyBindingHelper.registerKeyBinding(keyBindGrabWall);
+		KeyBindingHelper.registerKeyBinding(keyBindBreakfall);
+		KeyBindingHelper.registerKeyBinding(keyBindFastRunning);
+		KeyBindingHelper.registerKeyBinding(keyBindDodge);
+        KeyBindingHelper.registerKeyBinding(keyBindRideZipline);
+		KeyBindingHelper.registerKeyBinding(keyBindWallSlide);
+		KeyBindingHelper.registerKeyBinding(keyBindWallJump);
+		KeyBindingHelper.registerKeyBinding(keyBindVault);
+		KeyBindingHelper.registerKeyBinding(keyBindHorizontalWallRun);
+        KeyBindingHelper.registerKeyBinding(keyBindHideInBlock);
+		KeyBindingHelper.registerKeyBinding(keyBindOpenSettings);
+		KeyBindingHelper.registerKeyBinding(keyBindQuickTurn);
+		KeyBindingHelper.registerKeyBinding(keyBindFlipping);
+		KeyBindingHelper.registerKeyBinding(keyBindHangDown);
 	}
 }

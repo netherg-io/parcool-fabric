@@ -4,29 +4,43 @@ import com.alrex.parcool.ParCool;
 import com.alrex.parcool.common.item.component.ZiplineColorComponent;
 import com.alrex.parcool.common.item.component.ZiplinePositionComponent;
 import com.alrex.parcool.common.item.component.ZiplineTensionComponent;
+import com.alrex.parcool.fabric.IEventBus;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.registries.Registries;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
-
-import java.util.function.Supplier;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 
 public class DataComponents {
-    private static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ParCool.MOD_ID);
-    public static final Supplier<DataComponentType<ZiplineColorComponent>> ZIPLINE_COLOR = COMPONENTS.registerComponentType(
+    public static final DataComponentType<ZiplineColorComponent> ZIPLINE_COLOR = register(
             "zipline_color",
-            builder -> builder.persistent(ZiplineColorComponent.CODEC).networkSynchronized(ZiplineColorComponent.STREAM_CODEC)
+            DataComponentType.<ZiplineColorComponent>builder()
+                    .persistent(ZiplineColorComponent.CODEC)
+                    .networkSynchronized(ZiplineColorComponent.STREAM_CODEC)
+                    .build()
     );
-    public static final Supplier<DataComponentType<ZiplinePositionComponent>> ZIPLINE_POSITION = COMPONENTS.registerComponentType(
+    public static final DataComponentType<ZiplinePositionComponent> ZIPLINE_POSITION = register(
             "zipline_pos",
-            builder -> builder.persistent(ZiplinePositionComponent.CODEC).networkSynchronized(ZiplinePositionComponent.STREAM_CODEC)
+            DataComponentType.<ZiplinePositionComponent>builder()
+                    .persistent(ZiplinePositionComponent.CODEC)
+                    .networkSynchronized(ZiplinePositionComponent.STREAM_CODEC)
+                    .build()
     );
-    public static final Supplier<DataComponentType<ZiplineTensionComponent>> ZIPLINE_TENSION = COMPONENTS.registerComponentType(
+    public static final DataComponentType<ZiplineTensionComponent> ZIPLINE_TENSION = register(
             "zipline_tension",
-            builder -> builder.persistent(ZiplineTensionComponent.CODEC).networkSynchronized(ZiplineTensionComponent.STREAM_CODEC)
+            DataComponentType.<ZiplineTensionComponent>builder()
+                    .persistent(ZiplineTensionComponent.CODEC)
+                    .networkSynchronized(ZiplineTensionComponent.STREAM_CODEC)
+                    .build()
     );
 
+    private static <T> DataComponentType<T> register(String name, DataComponentType<T> type) {
+        return Registry.register(
+                BuiltInRegistries.DATA_COMPONENT_TYPE,
+                ResourceLocation.fromNamespaceAndPath(ParCool.MOD_ID, name),
+                type
+        );
+    }
+
     public static void registerAll(IEventBus bus) {
-        COMPONENTS.register(bus);
     }
 }

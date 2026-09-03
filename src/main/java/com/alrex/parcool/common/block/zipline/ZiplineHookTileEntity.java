@@ -75,9 +75,12 @@ public class ZiplineHookTileEntity extends BlockEntity {
         connectionEntities.remove(removedPair.getBlockPos());
     }
 
+    // ponytail: у NeoForge был отдельный onChunkUnloaded; в ваниле ближайшая точка -- setRemoved,
+    // который зовётся и при выгрузке чанка, и при ломании блока. Разделить, если тросы начнут
+    // пропадать при обычной выгрузке.
     @Override
-    public void onChunkUnloaded() {
-        super.onChunkUnloaded();
+    public void setRemoved() {
+        super.setRemoved();
         if (level != null) {
             getConnectionPoints().stream()
                     .filter(level::isLoaded)
@@ -196,12 +199,6 @@ public class ZiplineHookTileEntity extends BlockEntity {
         var nbt = super.getUpdateTag(registries);
         saveTo(nbt);
         return nbt;
-    }
-
-    @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider lookupProvider) {
-        super.handleUpdateTag(tag, lookupProvider);
-        restoreFrom(tag);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, BlockEntity entity) {

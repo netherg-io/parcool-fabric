@@ -6,12 +6,10 @@ import com.alrex.parcool.common.network.payload.ClientInformationPayload;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import io.github.fabricators_of_create.porting_lib.entity.events.EntityJoinLevelEvent;
+import com.alrex.parcool.fabric.PacketDistributor;
 
 public class PlayerJoinHandler {
-    @SubscribeEvent
     public static void onPlayerJoin(EntityJoinLevelEvent event) {
         if (!event.getLevel().isClientSide()) return;
         Entity entity = event.getEntity();

@@ -448,8 +448,8 @@ public class WorldUtil {
 			if (!entity.getCommandSenderWorld().isLoaded(blockPos1)) return null;
 			if (!entity.getCommandSenderWorld().isLoaded(blockPos2)) return null;
 			slipperiness = Math.min(
-					entity.getCommandSenderWorld().getBlockState(blockPos1).getFriction(entity.getCommandSenderWorld(), blockPos1, entity),
-					entity.getCommandSenderWorld().getBlockState(blockPos2).getFriction(entity.getCommandSenderWorld(), blockPos2, entity)
+					entity.getCommandSenderWorld().getBlockState(blockPos1).getBlock().getFriction(),
+					entity.getCommandSenderWorld().getBlockState(blockPos2).getBlock().getFriction()
 			);
 		} else {
 			double blockX = entity.getX() + xDirection, blockZ = entity.getZ() + zDirection;
@@ -471,7 +471,7 @@ public class WorldUtil {
                         Mth.floor(blockZ)
 				);
 			}
-			slipperiness = entity.level().getBlockState(blockPos).getFriction(entity.level(), blockPos, entity);
+			slipperiness = entity.level().getBlockState(blockPos).getBlock().getFriction();
 		}
 		return slipperiness <= 0.9 ? new Vec3(xDirection, 0, zDirection) : null;
 	}

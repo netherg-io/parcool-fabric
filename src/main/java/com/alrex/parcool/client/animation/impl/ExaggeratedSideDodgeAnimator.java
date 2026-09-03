@@ -7,7 +7,7 @@ import com.alrex.parcool.common.action.impl.Dodge;
 import com.alrex.parcool.common.attachment.common.Parkourability;
 import com.alrex.parcool.utilities.Easing;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.client.event.RenderFrameEvent;
+import com.alrex.parcool.fabric.RenderFrameEvent;
 
 public class ExaggeratedSideDodgeAnimator extends Animator {
 	public static final int Dodge_Max_Tick = 14;

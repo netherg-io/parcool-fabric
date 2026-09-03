@@ -9,8 +9,8 @@ import com.alrex.parcool.config.ParCoolConfig;
 import com.alrex.parcool.utilities.Easing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.client.event.RenderFrameEvent;
-import net.neoforged.neoforge.client.event.ViewportEvent;
+import com.alrex.parcool.fabric.RenderFrameEvent;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.ViewportEvent;
 
 public class DodgeAnimator extends Animator {
 	@Override

@@ -1,13 +1,13 @@
 package com.alrex.parcool.client;
 
 import net.minecraft.client.CameraType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public final class RenderBehaviorEnforcer {
 
     public interface Marker {
@@ -35,12 +35,12 @@ public final class RenderBehaviorEnforcer {
     @Nullable
     private static Enforcer<CameraType> cameraTypeEnforcer = null;
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public static void serMarkerEnforceCameraType(Marker marker, Supplier<CameraType> cameraTypeSupplier) {
         cameraTypeEnforcer = new Enforcer<>(marker, cameraTypeSupplier);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Nullable
     public static CameraType getEnforcedCameraType() {
         if (cameraTypeEnforcer != null && cameraTypeEnforcer.remain()) {

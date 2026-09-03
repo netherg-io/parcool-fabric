@@ -2,9 +2,7 @@ package com.alrex.parcool.common.network;
 
 import com.alrex.parcool.common.network.payload.ActionStateBroadcastPayload;
 import com.alrex.parcool.common.network.payload.ActionStatePayload;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.alrex.parcool.fabric.PacketDistributor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +21,7 @@ public class ActionSynchronizationBroadcaster {
         pendingPayloads = new ArrayList<>();
     }
 
-    @SubscribeEvent
-    public static void onTick(ServerTickEvent.Post event) {
+    public static void onTick() {
         send();
     }
 }

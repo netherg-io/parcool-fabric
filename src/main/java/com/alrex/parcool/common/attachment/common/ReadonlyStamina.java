@@ -8,9 +8,9 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import com.alrex.parcool.fabric.PacketDistributor;
 
 public record ReadonlyStamina(boolean isExhausted, int value, int max) {
     public static ReadonlyStamina createDefault() {
@@ -38,7 +38,7 @@ public record ReadonlyStamina(boolean isExhausted, int value, int max) {
         return new ReadonlyStamina(exhausted, newValue, max());
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public ReadonlyStamina updateMax(LocalPlayer player) {
         var attr = player.getAttribute(Attributes.MAX_STAMINA);
         if (attr == null) return this;
@@ -49,7 +49,7 @@ public record ReadonlyStamina(boolean isExhausted, int value, int max) {
         return new ReadonlyStamina(isExhausted(), value(), newMax);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public void sync(LocalPlayer player) {
         PacketDistributor.sendToServer(new StaminaPayload(player.getUUID(), this));
     }

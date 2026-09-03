@@ -6,33 +6,33 @@ import com.alrex.parcool.common.stamina.IParCoolStaminaHandler;
 import com.alrex.parcool.common.stamina.StaminaType;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import com.alrex.parcool.fabric.PacketDistributor;
 
 public class HungerStaminaHandler implements IParCoolStaminaHandler {
     private int consumed = 0;
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public ReadonlyStamina initializeStamina(LocalPlayer player, ReadonlyStamina current) {
         return new ReadonlyStamina(false, player.getFoodData().getFoodLevel(), 20);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public ReadonlyStamina consume(LocalPlayer player, ReadonlyStamina current, int value) {
         consumed += value;
         return current;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public ReadonlyStamina recover(LocalPlayer player, ReadonlyStamina current, int value) {
         return current;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     @Override
     public ReadonlyStamina onTick(LocalPlayer player, ReadonlyStamina current) {
         if (consumed > 0) {

@@ -8,7 +8,7 @@ import com.alrex.parcool.common.attachment.common.Parkourability;
 import com.alrex.parcool.config.ParCoolConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.client.event.ViewportEvent;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.ViewportEvent;
 
 public class HangAnimator extends Animator {
 	@Override

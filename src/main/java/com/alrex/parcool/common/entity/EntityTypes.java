@@ -6,9 +6,9 @@ import com.alrex.parcool.common.zipline.Zipline;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.alrex.parcool.fabric.IEventBus;
+import com.alrex.parcool.fabric.DeferredHolder;
+import com.alrex.parcool.fabric.DeferredRegister;
 
 public class EntityTypes {
     private static final DeferredRegister<EntityType<?>> REGISTER = DeferredRegister.create(Registries.ENTITY_TYPE, ParCool.MOD_ID);

@@ -10,7 +10,7 @@ import com.alrex.parcool.utilities.EasingFunctions;
 import com.alrex.parcool.utilities.MathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.client.event.ViewportEvent;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.ViewportEvent;
 
 public class FlippingAnimator extends Animator {
     public FlippingAnimator(Flipping.Direction direction) {

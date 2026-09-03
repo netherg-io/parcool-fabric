@@ -12,15 +12,13 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.alrex.parcool.fabric.ParCoolEvents;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingFallEvent;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingAttackEvent;
+import com.alrex.parcool.fabric.PacketDistributor;
 
 public class PlayerDamageHandler {
-    @SubscribeEvent
-    public static void onAttack(LivingIncomingDamageEvent event) {
+    public static void onAttack(LivingAttackEvent event) {
         LivingEntity entity = event.getEntity();
         if (entity instanceof Player player) {
             Parkourability parkourability = Parkourability.get(player);
@@ -37,7 +35,6 @@ public class PlayerDamageHandler {
         }
     }
 
-    @SubscribeEvent
     public static void onFall(LivingFallEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
 
@@ -77,8 +74,8 @@ public class PlayerDamageHandler {
 				HideInBlock hideInBlock = parkourability.get(HideInBlock.class);
 				if (hideInBlock.isStandbyInAir(parkourability)
 						&& parkourability.getActionInfo().can(HideInBlock.class)
-						&& !NeoForge.EVENT_BUS.post(new ParCoolActionEvent.TryToStartEvent(player, hideInBlock)).isCanceled()
-						&& !NeoForge.EVENT_BUS.post(new ParCoolActionEvent.TryToStart(player, hideInBlock)).isCanceled()
+						&& !ParCoolEvents.post(new ParCoolActionEvent.TryToStartEvent(player, hideInBlock)).isCanceled()
+						&& !ParCoolEvents.post(new ParCoolActionEvent.TryToStart(player, hideInBlock)).isCanceled()
 				) {
 					Tuple<BlockPos, BlockPos> area = WorldUtil.getHideAbleSpace(player, new BlockPos(player.blockPosition().below()));
 					if (area != null) {

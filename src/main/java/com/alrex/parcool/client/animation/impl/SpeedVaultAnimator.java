@@ -10,7 +10,7 @@ import com.alrex.parcool.utilities.Easing;
 import com.alrex.parcool.utilities.EasingFunctions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.client.event.ViewportEvent;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.ViewportEvent;
 
 import static com.alrex.parcool.utilities.MathUtil.lerp;
 

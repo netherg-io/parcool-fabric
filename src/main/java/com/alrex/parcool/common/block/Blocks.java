@@ -8,9 +8,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraft.world.level.material.PushReaction;
+import com.alrex.parcool.fabric.IEventBus;
+import com.alrex.parcool.fabric.DeferredHolder;
+import com.alrex.parcool.fabric.DeferredRegister;
 
 public class Blocks {
     private static final DeferredRegister<Block> REGISTER = DeferredRegister.create(Registries.BLOCK, ParCool.MOD_ID);
@@ -21,6 +22,7 @@ public class Blocks {
                     .mapColor(MapColor.WOOD)
                     .strength(1.0f, 3.0f)
                     .sound(SoundType.WOOD)
+                    .pushReaction(PushReaction.DESTROY)
             )
     );
     public static final DeferredHolder<Block, Block> IRON_ZIPLINE_HOOK = REGISTER.register(
@@ -31,6 +33,7 @@ public class Blocks {
                     .strength(1.0f, 3.0f)
                     .noCollission()
                     .sound(SoundType.CHAIN)
+                    .pushReaction(PushReaction.DESTROY)
             )
     );
 

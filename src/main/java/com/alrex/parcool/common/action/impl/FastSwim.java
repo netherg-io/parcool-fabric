@@ -14,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.common.NeoForgeMod;
 
 import java.nio.ByteBuffer;
 
@@ -80,16 +79,11 @@ public class FastSwim extends Action {
 
     @Override
     public void onServerTick(Player player, Parkourability parkourability) {
-        AttributeInstance attr = player.getAttribute(NeoForgeMod.SWIM_SPEED);
-        if (attr == null) return;
-        if (attr.getModifier(FAST_SWIM_MODIFIER) != null) attr.removeModifier(FAST_SWIM_MODIFIER);
+        // ponytail: у NeoForge скорость плавания -- отдельный атрибут (NeoForgeMod.SWIM_SPEED),
+        // под Fabric его нет; остаётся только спринт в воде. Вернуть, если Porting Lib заведёт аналог
+        // или если игроки заметят, что быстрое плавание не быстрее обычного.
         if (isDoing()) {
             player.setSprinting(true);
-            attr.addTransientModifier(new AttributeModifier(
-                    FAST_SWIM_MODIFIER,
-                    speedModifier / 8d,
-                    AttributeModifier.Operation.ADD_VALUE
-            ));
         }
     }
 

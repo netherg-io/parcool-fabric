@@ -2,15 +2,12 @@ package com.alrex.parcool.client.input;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import javax.annotation.Nullable;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class KeyRecorder {
 	public static final KeyState keyForward = new KeyState();
 	public static final KeyState keyBack = new KeyState();
@@ -31,8 +28,7 @@ public class KeyRecorder {
 	public static final KeyState keyGrabWall = new KeyState();
 	public static Vec3 lastDirection = null;
 
-	@SubscribeEvent
-	public static void onClientTick(MovementInputUpdateEvent event) {
+	public static void onClientTick() {
         record(KeyBindings.isKeyForwardDown(), keyForward);
         record(KeyBindings.isKeyBackDown(), keyBack);
         record(KeyBindings.isKeyRightDown(), keyRight);

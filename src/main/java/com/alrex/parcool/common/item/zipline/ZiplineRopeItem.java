@@ -52,7 +52,7 @@ public class ZiplineRopeItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nonnull TooltipContext context, @Nonnull List<Component> lines, @Nonnull TooltipFlag tooltipFlag) {
-        var posComponent = stack.getComponents().get(DataComponents.ZIPLINE_POSITION.get());
+        var posComponent = stack.getComponents().get(DataComponents.ZIPLINE_POSITION);
 
         if (posComponent != null) {
             lines.add(Component.translatable("parcool.gui.text.zipline.bind_pos", posComponent.pos().getX() + ", " + posComponent.pos().getY() + ", " + posComponent.pos().getZ()).withStyle(ChatFormatting.YELLOW));
@@ -196,12 +196,12 @@ public class ZiplineRopeItem extends Item {
     }
 
     public static boolean hasBlockPosition(ItemStack stack) {
-        return stack.has(DataComponents.ZIPLINE_POSITION.get());
+        return stack.has(DataComponents.ZIPLINE_POSITION);
     }
 
     @Nullable
     public static BlockPos getBlockPosition(ItemStack stack) {
-        var posComp = stack.getComponents().get(DataComponents.ZIPLINE_POSITION.get());
+        var posComp = stack.getComponents().get(DataComponents.ZIPLINE_POSITION);
         return posComp == null ? null : posComp.pos();
     }
 

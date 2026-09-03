@@ -5,6 +5,7 @@
   "client": [
     "client.ClientPacketListenerMixin",
     "client.ClientWorldMixin",
+    "client.GameRendererMixin",
     "client.LivingRendererMixin",
     "client.LocalPlayerMixin",
     "client.OptionsMixin",
@@ -17,6 +18,8 @@
   "mixins": [
     "common.EntityMixin",
     "common.LivingEntityMixin",
-    "common.PlayerMixin"
+    "common.PlayerAttributesMixin",
+    "common.PlayerMixin",
+    "common.PlayerPoseMixin"
   ]
 }

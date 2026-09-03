@@ -9,7 +9,7 @@ import com.alrex.parcool.utilities.VectorUtil;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.event.RenderFrameEvent;
+import com.alrex.parcool.fabric.RenderFrameEvent;
 
 import java.nio.ByteBuffer;
 

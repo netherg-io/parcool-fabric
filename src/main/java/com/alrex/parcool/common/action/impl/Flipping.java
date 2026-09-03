@@ -9,8 +9,8 @@ import com.alrex.parcool.common.attachment.client.Animation;
 import com.alrex.parcool.common.attachment.common.Parkourability;
 import com.alrex.parcool.config.ParCoolConfig;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import java.nio.ByteBuffer;
 
@@ -18,7 +18,7 @@ public class Flipping extends Action {
     public enum ControlType {
         PressRightAndLeft, TapMovementAndJump, PressFlippingKey;
 
-        @OnlyIn(Dist.CLIENT)
+        @Environment(EnvType.CLIENT)
         public boolean isInputDone(boolean justJumped) {
 			switch (this) {
                 case PressRightAndLeft:

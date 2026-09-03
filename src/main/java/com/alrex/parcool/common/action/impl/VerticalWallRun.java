@@ -19,9 +19,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.event.RenderFrameEvent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import com.alrex.parcool.fabric.RenderFrameEvent;
 
 import java.nio.ByteBuffer;
 
@@ -66,7 +66,7 @@ public class VerticalWallRun extends Action {
 							Mth.floor(player.getZ() + wall.z())
 					);
 					if (!player.getCommandSenderWorld().isLoaded(targetBlock)) return false;
-					float slipperiness = player.getCommandSenderWorld().getBlockState(targetBlock).getFriction(player.getCommandSenderWorld(), targetBlock, player);
+					float slipperiness = player.getCommandSenderWorld().getBlockState(targetBlock).getBlock().getFriction();
 					startInfo.putDouble(height);
 					startInfo.putFloat(slipperiness);
 					startInfo.putDouble(wall.x());
@@ -133,7 +133,7 @@ public class VerticalWallRun extends Action {
 		return StaminaConsumeTiming.OnStart;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public void spawnRunningParticle(Player player) {
 		if (!ParCoolConfig.Client.Booleans.EnableActionParticles.get()) return;
 		if (wallDirection == null) return;
@@ -162,7 +162,7 @@ public class VerticalWallRun extends Action {
                     .scale(2 + 4 * player.getRandom().nextDouble())
                     .add(0, 0.5, 0);
             level.addParticle(
-                    new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(leanedBlock),
+                    new BlockParticleOption(ParticleTypes.BLOCK, blockstate),
                     particlePos.x(),
                     particlePos.y(),
                     particlePos.z(),

@@ -2,8 +2,8 @@ package com.alrex.parcool.api.unstable.action;
 
 import com.alrex.parcool.common.action.Action;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.bus.api.Event;
-import net.neoforged.bus.api.ICancellableEvent;
+import com.alrex.parcool.fabric.Event;
+import com.alrex.parcool.fabric.ICancellableEvent;
 
 public class ParCoolActionEvent extends Event {
     private final Player player;

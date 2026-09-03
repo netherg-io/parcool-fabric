@@ -2,8 +2,8 @@ package com.alrex.parcool.client.animation;
 
 import com.alrex.parcool.common.attachment.common.Parkourability;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.client.event.RenderFrameEvent;
-import net.neoforged.neoforge.client.event.ViewportEvent;
+import com.alrex.parcool.fabric.RenderFrameEvent;
+import io.github.fabricators_of_create.porting_lib.client_events.event.client.ViewportEvent;
 
 public abstract class Animator {
 	private int tick = 0;

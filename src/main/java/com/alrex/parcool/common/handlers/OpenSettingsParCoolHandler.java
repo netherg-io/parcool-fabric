@@ -7,15 +7,12 @@ import com.alrex.parcool.config.ParCoolConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class OpenSettingsParCoolHandler {
-	@SubscribeEvent
-    public static void onTick(ClientTickEvent.Pre event) {
+    public static void onTick() {
 
 		if (KeyRecorder.keyOpenSettingsState.isPressed()) {
 			LocalPlayer player = Minecraft.getInstance().player;

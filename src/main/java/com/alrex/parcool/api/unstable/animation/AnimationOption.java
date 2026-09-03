@@ -1,11 +1,11 @@
 package com.alrex.parcool.api.unstable.animation;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import java.util.EnumMap;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class AnimationOption {
     private final EnumMap<AnimationPart, Boolean> animationMap = new EnumMap<>(AnimationPart.class);
     private boolean animationCanceled = false;

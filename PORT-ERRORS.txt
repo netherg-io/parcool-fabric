@@ -1,0 +1,65 @@
+src/main/java/com/alrex/parcool/common/item/CreativeTabs.java:18: error: method builder in class CreativeModeTab cannot be applied to given types;
+src/main/java/com/alrex/parcool/common/item/zipline/ZiplineRopeItem.java:191: error: method set in class ItemStack cannot be applied to given types;
+src/main/java/com/alrex/parcool/common/item/zipline/ZiplineRopeItem.java:195: error: method remove in class ItemStack cannot be applied to given types;
+src/main/java/com/alrex/parcool/common/item/zipline/ZiplineRopeItem.java:210: error: method set in class ItemStack cannot be applied to given types;
+src/main/java/com/alrex/parcool/common/item/zipline/ZiplineRopeItem.java:212: error: method remove in class ItemStack cannot be applied to given types;
+src/main/java/com/alrex/parcool/common/item/zipline/ZiplineRopeItem.java:217: error: method get in interface DataComponentHolder cannot be applied to given types;
+src/main/java/com/alrex/parcool/common/item/zipline/ZiplineRopeItem.java:222: error: method get in interface DataComponentHolder cannot be applied to given types;
+src/main/java/com/alrex/parcool/common/item/zipline/ZiplineRopeItem.java:227: error: method get in interface DataComponentHolder cannot be applied to given types;
+src/main/java/com/alrex/parcool/common/item/zipline/ZiplineRopeItem.java:237: error: method set in class ItemStack cannot be applied to given types;
+src/main/java/com/alrex/parcool/common/block/zipline/ZiplineHookTileEntity.java:80: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/block/zipline/ZiplineHookTileEntity.java:203: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/tags/BlockTags.java:9: error: incompatible types: ResourceLocation cannot be converted to String
+src/main/java/com/alrex/parcool/common/tags/BlockTags.java:10: error: incompatible types: ResourceLocation cannot be converted to String
+src/main/java/com/alrex/parcool/client/hud/impl/LightStaminaHUD.java:98: error: cannot find symbol
+src/main/java/com/alrex/parcool/client/hud/impl/LightStaminaHUD.java:141: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/AdditionalProperties.java:29: error: onGround has private access in Entity
+src/main/java/com/alrex/parcool/common/action/impl/Crawl.java:67: error: canPlayerFitWithinBlocksAndEntitiesWhen(Pose) has protected access in Player
+src/main/java/com/alrex/parcool/common/action/impl/Slide.java:105: error: swimAmount has private access in LivingEntity
+src/main/java/com/alrex/parcool/common/action/impl/Slide.java:106: error: swimAmountO has private access in LivingEntity
+src/main/java/com/alrex/parcool/common/action/impl/Slide.java:117: error: swimAmount has private access in LivingEntity
+src/main/java/com/alrex/parcool/common/action/impl/Slide.java:118: error: swimAmountO has private access in LivingEntity
+src/main/java/com/alrex/parcool/server/limitation/Limitations.java:238: error: LevelResource(String) has private access in LevelResource
+src/main/java/com/alrex/parcool/common/block/zipline/ZiplineHookBlock.java:52: error: method does not override or implement a method from a supertype
+src/main/java/com/alrex/parcool/common/block/zipline/ZiplineHookTileEntity.java:78: error: method does not override or implement a method from a supertype
+src/main/java/com/alrex/parcool/common/block/zipline/ZiplineHookTileEntity.java:201: error: method does not override or implement a method from a supertype
+src/main/java/com/alrex/parcool/common/action/impl/Crawl.java:105: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/Crawl.java:106: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/Crawl.java:112: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/HorizontalWallRun.java:77: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/HorizontalWallRun.java:268: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/WallJump.java:195: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/WallJump.java:239: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/WallJump.java:308: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/ClingToCliff.java:55: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/ClingToCliff.java:55: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/ClingToCliff.java:96: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/ClingToCliff.java:96: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/HangDown.java:62: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/HangDown.java:62: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/HangDown.java:94: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/HangDown.java:94: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/CatLeap.java:146: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/Slide.java:154: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/Slide.java:175: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/Slide.java:176: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/Slide.java:182: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/VerticalWallRun.java:69: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/VerticalWallRun.java:165: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/WallSlide.java:107: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/action/impl/WallSlide.java:157: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/handlers/InputHandler.java:26: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/handlers/InputHandler.java:26: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/handlers/InputHandler.java:33: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/handlers/InputHandler.java:33: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/handlers/InputHandler.java:40: error: cannot find symbol
+src/main/java/com/alrex/parcool/common/handlers/InputHandler.java:40: error: cannot find symbol
+src/main/java/com/alrex/parcool/server/command/args/ParCoolArgumentTypeInfos.java:14: error: cannot find symbol
+src/main/java/com/alrex/parcool/server/command/args/ParCoolArgumentTypeInfos.java:15: error: cannot find symbol
+src/main/java/com/alrex/parcool/server/command/args/ParCoolArgumentTypeInfos.java:16: error: cannot find symbol
+src/main/java/com/alrex/parcool/server/command/args/ParCoolArgumentTypeInfos.java:17: error: cannot find symbol
+src/main/java/com/alrex/parcool/server/command/args/ParCoolArgumentTypeInfos.java:18: error: cannot find symbol
+src/main/java/com/alrex/parcool/server/command/args/ParCoolArgumentTypeInfos.java:19: error: cannot find symbol
+src/main/java/com/alrex/parcool/utilities/WorldUtil.java:451: error: cannot find symbol
+src/main/java/com/alrex/parcool/utilities/WorldUtil.java:452: error: cannot find symbol
+src/main/java/com/alrex/parcool/utilities/WorldUtil.java:474: error: cannot find symbol

@@ -12,8 +12,8 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import com.alrex.parcool.fabric.ParCoolEvents;
+import com.alrex.parcool.fabric.IPayloadContext;
 
 import javax.annotation.Nonnull;
 import java.nio.ByteBuffer;
@@ -62,16 +62,16 @@ public record ActionStatePayload(UUID playerID, List<Entry> states) implements C
             switch (state.type()) {
                 case Start:
                     var buf = state.getDataAsBuffer();
-                    NeoForge.EVENT_BUS.post(new ParCoolActionEvent.Start.Pre(player, action));
+                    ParCoolEvents.post(new ParCoolActionEvent.Start.Pre(player, action));
                     action.start(player, parkourability, buf);
-                    NeoForge.EVENT_BUS.post(new ParCoolActionEvent.StartEvent(player, action));
-                    NeoForge.EVENT_BUS.post(new ParCoolActionEvent.Start.Post(player, action));
+                    ParCoolEvents.post(new ParCoolActionEvent.StartEvent(player, action));
+                    ParCoolEvents.post(new ParCoolActionEvent.Start.Post(player, action));
                     break;
                 case Finish:
-                    NeoForge.EVENT_BUS.post(new ParCoolActionEvent.Finish.Pre(player, action));
+                    ParCoolEvents.post(new ParCoolActionEvent.Finish.Pre(player, action));
                     action.finish(player);
-                    NeoForge.EVENT_BUS.post(new ParCoolActionEvent.StopEvent(player, action));
-                    NeoForge.EVENT_BUS.post(new ParCoolActionEvent.Finish.Post(player, action));
+                    ParCoolEvents.post(new ParCoolActionEvent.StopEvent(player, action));
+                    ParCoolEvents.post(new ParCoolActionEvent.Finish.Post(player, action));
                     break;
                 case Normal:
                     action.restoreSynchronizedState(state.getDataAsBuffer());

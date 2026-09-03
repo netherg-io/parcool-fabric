@@ -3,16 +3,15 @@ package com.alrex.parcool.common.item;
 import com.alrex.parcool.ParCool;
 import com.alrex.parcool.common.block.Blocks;
 import com.alrex.parcool.common.item.zipline.ZiplineRopeItem;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import com.alrex.parcool.fabric.IEventBus;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import com.alrex.parcool.fabric.DeferredHolder;
+import com.alrex.parcool.fabric.DeferredRegister;
 
 public class Items {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, ParCool.MOD_ID);
@@ -25,8 +24,8 @@ public class Items {
 		ITEMS.register(modBus);
 	}
 
-    @OnlyIn(Dist.CLIENT)
-    public static void registerColors(FMLClientSetupEvent event) {
-        Minecraft.getInstance().getItemColors().register(new ZiplineRopeItem.RopeColor(), ZIPLINE_ROPE::get);
+    @Environment(EnvType.CLIENT)
+    public static void registerColors() {
+        ColorProviderRegistry.ITEM.register(new ZiplineRopeItem.RopeColor(), ZIPLINE_ROPE.get());
     }
 }
