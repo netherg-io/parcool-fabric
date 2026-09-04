@@ -5,8 +5,8 @@ import com.alrex.parcool.client.input.KeyBindings;
 import com.alrex.parcool.client.renderer.Renderers;
 import com.alrex.parcool.common.attachment.ClientAttachments;
 import com.alrex.parcool.common.item.Items;
-import com.alrex.parcool.common.network.NetworkRegistries;
-import com.alrex.parcool.common.registries.EventRegistry;
+import com.alrex.parcool.client.ClientNetworkRegistries;
+import com.alrex.parcool.client.ClientEventRegistry;
 import com.alrex.parcool.extern.AdditionalMods;
 import com.alrex.parcool.fabric.IEventBus;
 import net.fabricmc.api.ClientModInitializer;
@@ -22,8 +22,8 @@ public class ParCoolClient implements ClientModInitializer {
 		ClientAttachments.registerAll(IEventBus.INSTANCE);
 		KeyBindings.register();
 		Renderers.register();
-		NetworkRegistries.registerClient();
-		EventRegistry.registerClient();
+		ClientNetworkRegistries.register();
+		ClientEventRegistry.register();
 
 		HudRenderCallback.EVENT.register((graphics, deltaTracker) ->
 				HUDManager.getInstance().getStaminaHUD().render(graphics, deltaTracker));

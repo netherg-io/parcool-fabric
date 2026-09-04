@@ -153,6 +153,10 @@ public class Slide extends Action {
 					.add(0, 1.5, 0);
 			var blockPos = player.position().add(0, -0.5, 0);
 			level.addParticle(
+					// ponytail: у NeoForge BlockParticleOption.setPos(pos) брал модель конкретной позиции;
+					// в ваниле такого сеттера нет, частица берёт модель блок-стейта по умолчанию.
+					// То же в CatLeap, Slide, WallJump, WallSlide, H/VerticalWallRun. Чинить, если
+					// станут заметны неправильные текстуры пыли у блоков с моделью по позиции.
 					new BlockParticleOption(ParticleTypes.BLOCK, feetBlock),
 					particlePos.x(),
 					particlePos.y(),

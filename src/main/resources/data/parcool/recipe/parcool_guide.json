@@ -19,5 +19,13 @@
     "components": {
       "patchouli:book": "parcool:parcool_guide"
     }
-  }
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "patchouli"
+      ]
+    }
+  ]
 }

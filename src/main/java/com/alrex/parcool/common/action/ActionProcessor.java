@@ -10,7 +10,6 @@ import com.alrex.parcool.common.network.payload.ActionStatePayload;
 import com.alrex.parcool.config.ParCoolConfig;
 import com.alrex.parcool.utilities.BufferUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
@@ -20,8 +19,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import com.alrex.parcool.fabric.RenderFrameEvent;
-import io.github.fabricators_of_create.porting_lib.client_events.event.client.ViewportEvent;
 import com.alrex.parcool.fabric.ParCoolEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.tick.PlayerTickEvent;
 import com.alrex.parcool.fabric.PacketDistributor;
@@ -256,33 +253,4 @@ public class ActionProcessor {
 		}
 	}
 
-	// ====
-
-	@Environment(EnvType.CLIENT)
-	public void onRenderTick(RenderFrameEvent.Pre event) {
-		Player clientPlayer = Minecraft.getInstance().player;
-		if (clientPlayer == null) return;
-		for (Player player : clientPlayer.getCommandSenderWorld().players()) {
-			Parkourability parkourability = Parkourability.get(player);
-			if (parkourability == null) return;
-			List<Action> actions = parkourability.getList();
-			for (Action action : actions) {
-				action.onRenderTick(event, player, parkourability);
-			}
-			Animation animation = Animation.get(player);
-			if (animation == null) return;
-			animation.onRenderTick(event, player, parkourability);
-		}
-	}
-
-	@Environment(EnvType.CLIENT)
-	public void onViewRender(ViewportEvent.ComputeCameraAngles event) {
-        LocalPlayer player = Minecraft.getInstance().player;
-		if (player == null) return;
-		Parkourability parkourability = Parkourability.get(player);
-		if (parkourability == null) return;
-		Animation animation = Animation.get(player);
-		if (animation == null) return;
-		animation.cameraSetup(event, player, parkourability);
-	}
 }
