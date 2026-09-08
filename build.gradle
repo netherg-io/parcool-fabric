@@ -4,7 +4,7 @@ plugins {
     id 'fabric-loom' version '1.11-SNAPSHOT'
 }
 
-version = "${project.minecraft_version}-${project.mod_version}-fabric"
+version = "${project.minecraft_version}-${project.mod_version}-fabric-bf1"
 group = 'com.alrex'
 
 base {
@@ -26,7 +26,12 @@ repositories {
     maven { url = 'https://mvn.devos.one/snapshots/' }
     maven { url = 'https://jitpack.io' }
     maven { url = 'https://raw.githubusercontent.com/Fuzss/modresources/main/maven/' }
-    maven { url = 'https://api.modrinth.com/maven' }
+    // exclusiveContent: иначе Gradle ищет maven.modrinth во всех репозиториях подряд
+    // и падает на первом же, до которого не достучался.
+    exclusiveContent {
+        forRepository { maven { url = 'https://api.modrinth.com/maven' } }
+        filter { includeGroup 'maven.modrinth' }
+    }
 }
 
 dependencies {
@@ -48,6 +53,9 @@ dependencies {
     for (module in ['core', 'entity', 'client_events']) {
         modImplementation "io.github.fabricators_of_create.Porting-Lib:${module}:${project.porting_lib_version}"
     }
+
+    // Только ради com.tacz.guns.api.item.IGun в extern/tacz; в рантайме мод не обязателен.
+    modCompileOnly "maven.modrinth:tacz-refabricated:${project.tacz_version}"
 
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 }

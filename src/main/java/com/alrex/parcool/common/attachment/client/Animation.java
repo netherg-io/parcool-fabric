@@ -40,8 +40,10 @@ public class Animation {
 	public boolean animatePre(Player player, PlayerModelTransformer modelTransformer) {
 		Parkourability parkourability = Parkourability.get(player);
         if (animator != null && animator.shouldRemoved(player, parkourability)) animator = null;
-        if (animator == null) return false;
+        // Опцию ставим до выхода по animator == null: иначе PassiveCustomAnimation (махи руками
+        // в свободном падении) идёт мимо неё и всё равно перебивает чужую позу.
         modelTransformer.setOption(option);
+        if (animator == null) return false;
 		if (shouldCancelAnimation(player)) return false;
 		return animator.animatePre(player, parkourability, modelTransformer);
 	}
