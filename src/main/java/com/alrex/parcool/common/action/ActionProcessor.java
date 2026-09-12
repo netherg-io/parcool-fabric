@@ -29,6 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ActionProcessor {
+	private static final BehaviorEnforcer.ID ID_EXHAUSTION_SPRINT_CANCEL = BehaviorEnforcer.newID();
 	private static final ResourceLocation STAMINA_DEPLETED_SLOWNESS_MODIFIER_ID =
 			ResourceLocation.fromNamespaceAndPath(ParCool.MOD_ID, "exhausted.speed");
 
@@ -108,6 +109,11 @@ public class ActionProcessor {
 		if (attr != null) {
 			if (LocalStamina.get(player).imposeExhaustionPenalty(player) && parkourability.getClientInfo().get(ParCoolConfig.Client.Booleans.EnableStaminaExhaustionPenalty)) {
 				player.setSprinting(false);
+				// Blockfield: без маркера ваниль включает спринт обратно каждый тик, FastRun снова тратит стамину,
+				// и восстановление не начинается, пока игрок не остановится; спринт при этом мерцает.
+				parkourability.getBehaviorEnforcer().addMarkerCancellingSprint(ID_EXHAUSTION_SPRINT_CANCEL,
+						() -> LocalStamina.get(player).imposeExhaustionPenalty(player)
+								&& parkourability.getClientInfo().get(ParCoolConfig.Client.Booleans.EnableStaminaExhaustionPenalty));
 				if (!attr.hasModifier(STAMINA_DEPLETED_SLOWNESS_MODIFIER_ID)) {
 					attr.addTransientModifier(STAMINA_DEPLETED_SLOWNESS_MODIFIER);
 				}

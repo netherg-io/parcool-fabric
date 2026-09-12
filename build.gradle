@@ -4,7 +4,7 @@ plugins {
     id 'fabric-loom' version '1.11-SNAPSHOT'
 }
 
-version = "${project.minecraft_version}-${project.mod_version}-fabric-bf2"
+version = "${project.minecraft_version}-${project.mod_version}-fabric-bf3"
 group = 'com.alrex'
 
 base {
