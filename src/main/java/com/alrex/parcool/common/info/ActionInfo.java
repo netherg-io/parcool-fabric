@@ -51,6 +51,10 @@ public class ActionInfo {
     }
 
 	public int getStaminaConsumptionOf(Class<? extends Action> action) {
+        // Blockfield: бег бесконечный, как в Battlefield. FastRun висит на клавише спринта, и через ~50 с бега стамина
+        // истощалась: ParCool гасил спринт каждый тик до полного восстановления (игроки видят «дёргающийся» спринт).
+        // Клиентский конфиг preserve, поэтому правим здесь, а не в parcool-client.toml.
+        if (action == com.alrex.parcool.common.action.impl.FastRun.class) return 0;
         return Math.max(
                 getClientSetting().getStaminaConsumptionOf(action),
                 getServerLimitation().getStaminaConsumptionOf(action)
