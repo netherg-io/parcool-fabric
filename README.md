@@ -1,3 +1,5 @@
+> **Blockfield:** этот форк попадает в пак так: закоммитить в `main`, затем в `blockfield-modpack` выполнить `scripts/bump-fork.sh parcool`. Скрипт сам ставит тег `bfN`, ждёт сборку и закрепляет релиз. Версию руками не менять.
+
 ![ParCool_Logo](./parcool_logo.png)
 
 # ParCool MOD
