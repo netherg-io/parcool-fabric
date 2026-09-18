@@ -48,8 +48,12 @@ public class Crawl extends Action {
     }
 
     private boolean disambiguateCommands(Player player, Pose pose) {
-        // If crawl and dodge are bound to the same key, we'll crawl only when crouching
-        return pose == Pose.CROUCHING || !KeyRecorder.keyDodge.isPressed();
+        // If crawl and dodge are bound to the same key, dodge wins only while it can actually start:
+        // a key dodge needs a held direction. Standing still, the shared key must still crawl
+        // (Blockfield: players rebind Crawl to C, the pack's Dodge key, and it went dead).
+        return pose == Pose.CROUCHING || !KeyRecorder.keyDodge.isPressed()
+                || !(KeyBindings.isKeyForwardDown() || KeyBindings.isKeyBackDown()
+                || KeyBindings.isKeyLeftDown() || KeyBindings.isKeyRightDown());
     }
 
     @Override
