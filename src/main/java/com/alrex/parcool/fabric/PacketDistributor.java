@@ -18,6 +18,11 @@ public final class PacketDistributor {
         ClientSender.send(payload);
     }
 
+    /** Whether the current server registered this payload's channel (false on a proxy lobby without ParCool). */
+    public static boolean serverAccepts(CustomPacketPayload.Type<?> type) {
+        return ClientSender.canSend(type);
+    }
+
     public static void sendToPlayer(Player player, CustomPacketPayload payload) {
         if (player instanceof ServerPlayer serverPlayer) {
             ServerPlayNetworking.send(serverPlayer, payload);
@@ -35,6 +40,10 @@ public final class PacketDistributor {
     private static final class ClientSender {
         static void send(CustomPacketPayload payload) {
             net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(payload);
+        }
+
+        static boolean canSend(CustomPacketPayload.Type<?> type) {
+            return net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(type);
         }
     }
 }

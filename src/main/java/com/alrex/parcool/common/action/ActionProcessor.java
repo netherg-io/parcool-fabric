@@ -7,6 +7,7 @@ import com.alrex.parcool.common.attachment.client.Animation;
 import com.alrex.parcool.common.attachment.client.LocalStamina;
 import com.alrex.parcool.common.attachment.common.Parkourability;
 import com.alrex.parcool.common.network.payload.ActionStatePayload;
+import com.alrex.parcool.common.network.payload.ClientInformationPayload;
 import com.alrex.parcool.config.ParCoolConfig;
 import com.alrex.parcool.utilities.BufferUtil;
 import net.minecraft.ChatFormatting;
@@ -126,7 +127,8 @@ public class ActionProcessor {
     @Environment(EnvType.CLIENT)
 	private void onTick$checkLimitationSynchronization(Player player, Parkourability parkourability) {
 		if (player.isLocalPlayer() && player.tickCount > 127 && player.tickCount % 256 == 0 && parkourability.limitationIsNotSynced()) {
-			if (player instanceof LocalPlayer localPlayer) {
+			// Blockfield: the proxy's waiting lobby has no ParCool, the sync can never succeed there.
+			if (player instanceof LocalPlayer localPlayer && PacketDistributor.serverAccepts(ClientInformationPayload.TYPE)) {
 				int trialCount = parkourability.getSynchronizeTrialCount();
 				if (trialCount < 5) {
 					parkourability.trySyncLimitation(localPlayer, parkourability);
